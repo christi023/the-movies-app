@@ -3,7 +3,7 @@
 /client/node_modules
 dev.js
 
-/client/utils/misc
+/client/utils/misc.js
 /server/config
 
 .env
