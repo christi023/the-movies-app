@@ -8,20 +8,49 @@ import Register from './Components/Register/Register';
 import NavBar from './Components/NavBar/NavBar';
 import Footer from './Components/Footer/Footer';
 import './App.css';
+//styles
+import Particles from 'react-particles-js';
+
+import './App.css';
+const ParticleParams = {
+  particles: {
+    number: {
+      value: 50,
+      density: {
+        enable: true,
+        value_area: 800,
+      },
+      size: {
+        value: 3,
+      },
+    },
+    interactivity: {
+      events: {
+        onHover: {
+          enable: true,
+          mode: 'repulse',
+        },
+      },
+    },
+  },
+};
 
 function App() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <NavBar />
-      <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
-        <Switch>
-          <Route exact path="/" component={Auth(LandingPage, null)} />
-          <Route exact path="/login" component={Auth(Login, false)} />
-          <Route exact path="/register" component={Auth(Register, false)} />
-        </Switch>
-      </div>
-      <Footer />
-    </Suspense>
+    <>
+      <Particles className="particles" params={ParticleParams} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <NavBar />
+        <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
+          <Switch>
+            <Route exact path="/" component={Auth(LandingPage, null)} />
+            <Route exact path="/login" component={Auth(Login, false)} />
+            <Route exact path="/register" component={Auth(Register, false)} />
+          </Switch>
+        </div>
+        <Footer />
+      </Suspense>
+    </>
   );
 }
 
