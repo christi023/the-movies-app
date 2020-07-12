@@ -55,8 +55,9 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
-userSchema.statics.findByCredentials = async (token, email, password) => {
+userSchema.statics.findByCredentials = async function (token, email, password) {
   // Search for a user by email and password.
+
   const user = await User.findOne({ email, 'token ': token });
   if (!user) {
     throw new Error({ error: 'Invalid login credentials' });
@@ -69,6 +70,17 @@ userSchema.statics.findByCredentials = async (token, email, password) => {
 
   return user;
 };
+
+/*userSchema.statics.findByCredentials = function (token, cb) {
+  const user = this;
+
+  jwt.verify(token, 'secret', function (err, decode) {
+    user.findOne({ _id: decode, token: token }, function (err, user) {
+      if (err) return cb(err);
+      cb(null, user);
+    });
+  });
+};*/
 
 const User = mongoose.model('User', userSchema);
 

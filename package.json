@@ -1,0 +1,37 @@
+{
+  "name": "the-movies-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "engine": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "nodemon server/server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently  \"npm run server\" \"npm run client\""
+  },
+  "author": "Sheliann Olsson",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.8",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "mongoose": "^5.9.21",
+    "react-redux": "^5.0.7",
+    "saslprep": "^1.0.3",
+    "supports-color": "^7.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.2",
+    "nodemon": "^1.19.4"
+  }
+}

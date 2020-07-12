@@ -75,7 +75,6 @@ function Login(props) {
           handleChange,
           handleBlur,
           handleSubmit,
-          handleReset,
         } = props;
         return (
           <div className="app">
@@ -97,6 +96,8 @@ function Login(props) {
                 )}
               </Form.Item>
 
+              <br />
+
               <Form.Item required>
                 <Input
                   id="password"
@@ -114,6 +115,7 @@ function Login(props) {
                   <div className="input-feedback">{errors.password}</div>
                 )}
               </Form.Item>
+              <br />
 
               {formErrorMessage && (
                 <label>
@@ -139,6 +141,7 @@ function Login(props) {
                   forgot password
                 </a>
                 <div>
+                  <br />
                   <Button
                     type="primary"
                     htmlType="submit"
@@ -150,7 +153,8 @@ function Login(props) {
                     Log in
                   </Button>
                 </div>
-                Or <a href="/register">register now!</a>
+                <br />
+                <a href="/register">Don't have an account? {'Register Now!'}</a>
               </Form.Item>
             </form>
           </div>

@@ -1,4 +1,25 @@
 @import '~antd/dist/antd.css';
+a {
+  text-decoration: none;
+  color: whitesmoke;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  background: blueviolet;
+  width: 120px;
+  height: 55px;
+  padding: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 10px;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+}
+
+a:hover {
+  background: black;
+  color: royalblue;
+}
 
 .menu {
   padding: 0 20px;
@@ -11,6 +32,7 @@
 .menu__logo {
   width: 150px;
   float: left;
+  text-align: center;
 }
 
 .menu__logo a {

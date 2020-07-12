@@ -79,17 +79,15 @@ function Register(props) {
           values,
           touched,
           errors,
-          dirty,
           isSubmitting,
           handleChange,
           handleBlur,
           handleSubmit,
-          handleReset,
         } = props;
         return (
           <div className="app">
             <h2>Sign up</h2>
-            <Form style={{ minWidth: '375px' }} {...formItemLayout} onSubmit={handleSubmit}>
+            <Form style={{ minWidth: '350px' }} {...formItemLayout} onSubmit={handleSubmit}>
               <Form.Item required label="First Name">
                 <Input
                   id="firstname"
