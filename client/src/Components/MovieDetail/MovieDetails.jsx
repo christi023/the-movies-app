@@ -10,7 +10,7 @@ import LikeDislikes from './Sections/LikeDislikes';
 import MovieInfo from './Sections/MovieInfo';
 import Favorite from './Sections/Favorite';
 //Grid Card component
-import GridCard from '../Commons/GridCards';
+import GridCards from '../Commons/GridCards';
 // Main Image Component
 import MainImage from '../LandingPage/Images/MainImage';
 
