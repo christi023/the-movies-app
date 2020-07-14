@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Typography, Row, Button } from 'antd';
+import { Typography, Row } from 'antd';
 // import utils
 import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE, POSTER_SIZE } from '../utils/misc';
 // Components
@@ -9,7 +9,7 @@ import GridCard from '../Commons/GridCards';
 const { Title } = Typography;
 function LandingPage() {
   const buttonRef = useRef(null);
-
+  // All data
   const [Movies, setMovies] = useState([]);
   const [MainMovieImage, setMainMovieImage] = useState(null);
   const [Loading, setLoading] = useState(true);
@@ -18,8 +18,14 @@ function LandingPage() {
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     fetchMovies(endpoint);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+  }, []);
+
+  // method to fetch movies to reload pages
   const fetchMovies = (endpoint) => {
     fetch(endpoint)
       .then((result) => result.json())
@@ -39,6 +45,7 @@ function LandingPage() {
     let endpoint = '';
     setLoading(true);
     console.log('CurrentPage', CurrentPage);
+    // loading diff pages
     endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1}`;
     fetchMovies(endpoint);
   };
