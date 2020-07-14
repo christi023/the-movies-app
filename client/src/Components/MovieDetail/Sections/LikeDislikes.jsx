@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Tooltip } from 'antd';
-import Icon from '@material-ui/icons/LockOutlined';
-import Axios from 'axios';
+import IconUp from '@material-ui/icons/ThumbUp';
+import IconDown from '@material-ui/icons/ThumbDown';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 export default function LikeDislikes(props) {
@@ -20,7 +21,7 @@ export default function LikeDislikes(props) {
   }
 
   useEffect(() => {
-    Axios.post('/api/like/getLikes', variable).then((response) => {
+    axios.post('/api/like/getLikes', variable).then((response) => {
       console.log('getLikes', response.data);
 
       if (response.data.success) {
@@ -28,7 +29,7 @@ export default function LikeDislikes(props) {
         setLikes(response.data.likes.length);
 
         //if I already click this like button or not
-        response.data.likes.map((like) => {
+        response.data.likes.forEach((like) => {
           if (like.userId === props.userId) {
             setLikeAction('liked');
           }
@@ -38,14 +39,14 @@ export default function LikeDislikes(props) {
       }
     });
 
-    Axios.post('/api/like/getDislikes', variable).then((response) => {
+    axios.post('/api/like/getDislikes', variable).then((response) => {
       console.log('getDislike', response.data);
       if (response.data.success) {
         //How many likes does this video or comment have
         setDislikes(response.data.dislikes.length);
 
         //if I already click this like button or not
-        response.data.dislikes.map((dislike) => {
+        response.data.dislikes.forEach((dislike) => {
           if (dislike.userId === props.userId) {
             setDislikeAction('disliked');
           }
@@ -53,7 +54,7 @@ export default function LikeDislikes(props) {
       } else {
         alert('Failed to get dislikes');
       }
-    });
+    }); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onLike = () => {
@@ -62,7 +63,7 @@ export default function LikeDislikes(props) {
     }
 
     if (LikeAction === null) {
-      Axios.post('/api/like/upLike', variable).then((response) => {
+      axios.post('/api/like/upLike', variable).then((response) => {
         if (response.data.success) {
           setLikes(Likes + 1);
           setLikeAction('liked');
@@ -78,7 +79,7 @@ export default function LikeDislikes(props) {
         }
       });
     } else {
-      Axios.post('/api/like/unLike', variable).then((response) => {
+      axios.post('/api/like/unLike', variable).then((response) => {
         if (response.data.success) {
           setLikes(Likes - 1);
           setLikeAction(null);
@@ -95,7 +96,7 @@ export default function LikeDislikes(props) {
     }
 
     if (DislikeAction !== null) {
-      Axios.post('/api/like/unDisLike', variable).then((response) => {
+      axios.post('/api/like/unDisLike', variable).then((response) => {
         if (response.data.success) {
           setDislikes(Dislikes - 1);
           setDislikeAction(null);
@@ -104,7 +105,7 @@ export default function LikeDislikes(props) {
         }
       });
     } else {
-      Axios.post('/api/like/upDisLike', variable).then((response) => {
+      axios.post('/api/like/upDisLike', variable).then((response) => {
         if (response.data.success) {
           setDislikes(Dislikes + 1);
           setDislikeAction('disliked');
@@ -125,7 +126,7 @@ export default function LikeDislikes(props) {
     <React.Fragment>
       <span key="comment-basic-like">
         <Tooltip title="Like">
-          <Icon
+          <IconUp
             type="like"
             theme={LikeAction === 'liked' ? 'filled' : 'outlined'}
             onClick={onLike}
@@ -136,7 +137,7 @@ export default function LikeDislikes(props) {
       &nbsp;&nbsp;&nbsp;&nbsp;
       <span key="comment-basic-dislike">
         <Tooltip title="Dislike">
-          <Icon
+          <IconDown
             type="dislike"
             theme={DislikeAction === 'disliked' ? 'filled' : 'outlined'}
             onClick={onDisLike}

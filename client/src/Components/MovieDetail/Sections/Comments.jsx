@@ -51,7 +51,7 @@ export default function Comments(props) {
         props.CommentLists.map(
           (comment, index) =>
             !comment.responseTo && (
-              <React.Fragment>
+              <React.Fragment key={index}>
                 <SingleComment
                   comment={comment}
                   postId={props.postId}

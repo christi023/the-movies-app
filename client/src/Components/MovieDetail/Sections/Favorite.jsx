@@ -62,17 +62,16 @@ export default function Favorite(props) {
 
     axios.post('/api/favorite/favorited', variables).then((response) => {
       if (response.data.success) {
-        setFavorited(response.data.subcribed);
+        setFavorited(response.data.subscribed);
       } else {
         alert('Failed to get Favorite Information');
       }
-    });
+    }); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <Button onClick={onClickFavorite}>
-        {' '}
         {!Favorited ? 'Add to Favorite' : 'Not Favorite'} {FavoriteNumber}
       </Button>
     </>
