@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Popover } from 'antd';
 import axios from 'axios';
-import './FavoritePage.css';
+
 import { useSelector } from 'react-redux';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/misc';
+//style
+import './FavoritePage.css';
 
 const { Title } = Typography;
 
@@ -15,7 +17,7 @@ export default function FavoritePage() {
   let variable = { userFrom: localStorage.getItem('userId') };
 
   useEffect(() => {
-    fetchFavoredMovie();
+    fetchFavoredMovie(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchFavoredMovie = () => {
@@ -49,7 +51,7 @@ export default function FavoritePage() {
     const content = (
       <div>
         {favorite.moviePost ? (
-          <img src={`${IMAGE_BASE_URL}${POSTER_SIZE}${favorite.moviePost}`} />
+          <img src={`${IMAGE_BASE_URL}${POSTER_SIZE}${favorite.moviePost}`} alt={''} />
         ) : (
           'no image'
         )}
