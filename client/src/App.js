@@ -7,6 +7,8 @@ import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import NavBar from './Components/NavBar/NavBar';
 import Footer from './Components/Footer/Footer';
+import MovieDetail from './Components/MovieDetail/MovieDetails';
+import FavoritePage from './Components/FavoritePage/FavoritePage';
 import './App.css';
 //styles
 import Particles from 'react-particles-js';
@@ -46,6 +48,8 @@ function App() {
             <Route exact path="/" component={Auth(LandingPage, null)} />
             <Route exact path="/login" component={Auth(Login, false)} />
             <Route exact path="/register" component={Auth(Register, false)} />
+            <Route exact path="/movie/:movieId" component={Auth(MovieDetail, null)} />
+            <Route exact path="/favorite" component={Auth(FavoritePage, null)} />
           </Switch>
         </div>
         <Footer />
