@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { List, Avatar, Row, Col, Button } from 'antd';
+import { Row, Button } from 'antd';
 import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE } from '../utils/misc';
 // axios
 import axios from 'axios';
-
 // imports section components
 import Comments from './Sections/Comments';
 import LikeDislikes from './Sections/LikeDislikes';
@@ -40,8 +39,8 @@ export default function MovieDetails(props) {
       } else {
         alert('Failed to get comments Info');
       }
-    });
-  }, []);
+    }); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setMovie]);
 
   // viewing actors
   const toggleActorView = () => {
@@ -79,7 +78,7 @@ export default function MovieDetails(props) {
       {/* Header */}
       {!LoadingForMovie ? (
         <MainImage
-          image={`${IMAGE_BASE_URL}${IMAGE_SIZE}${Movie.backdrop_path}`}
+          image={`${IMAGE_BASE_URL}${IMAGE_SIZE}/${Movie.backdrop_path}`}
           title={Movie.original_title}
           text={Movie.overview}
         />
@@ -109,7 +108,12 @@ export default function MovieDetails(props) {
               Casts.map(
                 (cast, index) =>
                   cast.profile_path && (
-                    <GridCards actor image={cast.profile_path} characterName={cast.characterName} />
+                    <GridCards
+                      actor
+                      key={index}
+                      image={cast.profile_path}
+                      characterName={cast.characterName}
+                    />
                   ),
               )
             ) : (
