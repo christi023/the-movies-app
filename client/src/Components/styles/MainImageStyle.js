@@ -15,12 +15,12 @@ export const MainImageStyle = styled.div`
   height: 600px;
   position: relative;
   animation: animateHeroimage 1s;
-  .heroimage-content {
+  .mainImage-content {
     max-width: 1280px;
     padding: 20px;
     margin: 0 auto;
   }
-  .heroimage-text {
+  .mainImage-text {
     z-index: 100;
     max-width: 700px;
     position: absolute;
