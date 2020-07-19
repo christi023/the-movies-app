@@ -1,12 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Typography, Row } from 'antd';
 // import utils
-import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE, POSTER_SIZE } from '../utils/misc';
+import {
+  API_URL,
+  API_KEY,
+  IMAGE_BASE_URL,
+  IMAGE_SIZE,
+  POSTER_SIZE,
+  SEARCH_BASE_URL,
+  POPULAR_BASE_URL,
+} from '../utils/misc';
+
 // Components
 import MainImage from './Images/MainImage';
 import GridCard from '../Commons/GridCards';
+import SearchBar from '../SearchBar/SearchBar';
 
 const { Title } = Typography;
+
 function LandingPage() {
   const buttonRef = useRef(null);
   // All data
@@ -14,6 +25,7 @@ function LandingPage() {
   const [MainMovieImage, setMainMovieImage] = useState(null);
   const [Loading, setLoading] = useState(true);
   const [CurrentPage, setCurrentPage] = useState(0);
+  //const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
@@ -24,6 +36,13 @@ function LandingPage() {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
   }, []);
+
+  // search movies
+  const searchMovies = (search) => {
+    const endpoint1 = search ? SEARCH_BASE_URL + search : POPULAR_BASE_URL;
+    //setSearchTerm(search);
+    fetchMovies(endpoint1);
+  };
 
   // method to fetch movies to reload pages
   const fetchMovies = (endpoint) => {
@@ -80,6 +99,7 @@ function LandingPage() {
           text={MainMovieImage.overview}
         />
       )}
+      <SearchBar callback={searchMovies} />
 
       <div style={{ width: '85%', margin: '1rem auto' }}>
         <Title level={2}> Movies by latest </Title>
