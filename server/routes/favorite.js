@@ -18,18 +18,20 @@ router.post('/api/favorite/favoriteNumber', (req, res) => {
 });
 
 router.post('/api/favorite/favorited', (req, res) => {
-  Favorite.find({ movieId: req.body.movieId, userFrom: req.body.userFrom }).exec(
-    (err, subscribe) => {
-      if (err) return res.status(400).send(err);
+  Favorite.find({
+    movieId: req.body.movieId,
+    userFrom: req.body.userFrom,
+    movieTitle: req.body.movieTitle,
+  }).exec((err, subscribe) => {
+    if (err) return res.status(400).send(err);
 
-      let result = false;
-      if (subscribe.length !== 0) {
-        result = true;
-      }
+    let result = false;
+    if (subscribe.length !== 0) {
+      result = true;
+    }
 
-      res.status(200).json({ success: true, subscribed: result });
-    },
-  );
+    res.status(200).json({ success: true, subscribed: result });
+  });
 });
 
 router.post('/api/favorite/addToFavorite', (req, res) => {
