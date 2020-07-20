@@ -9,7 +9,7 @@ export default function Favorite(props) {
   const movieId = props.movieId;
   const userFrom = props.userFrom;
   const movieTitle = props.movieInfo.title;
-  const moviePost = props.movieInfo.backdrop_path;
+  const movieImage = props.movieInfo.backdrop_path;
   const movieRunTime = props.movieInfo.runtime;
 
   const [FavoriteNumber, setFavoriteNumber] = useState(0);
@@ -18,7 +18,7 @@ export default function Favorite(props) {
     movieId: movieId,
     userFrom: userFrom,
     movieTitle: movieTitle,
-    moviePost: moviePost,
+    movieImage: movieImage,
     movieRunTime: movieRunTime,
   };
 
