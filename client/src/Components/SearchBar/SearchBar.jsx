@@ -8,7 +8,7 @@ const SearchBar = ({ callback }) => {
   const [state, setState] = useState('');
   const timeOut = useRef(null);
 
-  const doSearch = (event) => {
+  const handleSearch = (event) => {
     const { value } = event.target;
 
     clearTimeout(timeOut.current);
@@ -23,7 +23,7 @@ const SearchBar = ({ callback }) => {
     <StyledSearchBar>
       <StyledSearchBarContent>
         <SearchIcon className="fa-search" name="search" size="2x" />
-        <input type="text" placeholder="Search Movie" onChange={doSearch} value={state} />
+        <input type="text" placeholder="Search Movie" onChange={handleSearch} value={state} />
       </StyledSearchBarContent>
     </StyledSearchBar>
   );
