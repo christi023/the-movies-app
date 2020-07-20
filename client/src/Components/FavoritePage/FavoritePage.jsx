@@ -14,12 +14,14 @@ export default function FavoritePage() {
 
   const [Favorites, setFavorites] = useState([]);
   const [Loading, setLoading] = useState(true);
+
   let variable = { userFrom: localStorage.getItem('userId') };
 
   useEffect(() => {
     fetchFavoredMovie(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // get favorite movies from database
   const fetchFavoredMovie = () => {
     axios.post('/api/favorite/getFavoredMovie', variable).then((response) => {
       if (response.data.success) {
@@ -32,10 +34,13 @@ export default function FavoritePage() {
     });
   };
 
-  const onClickDelete = (movieId, userFrom) => {
+  // remove favorite movies from database
+  const onClickDelete = (movieId, userFrom, movieTitle, movieImage) => {
     const variables = {
       movieId: movieId,
       userFrom: userFrom,
+      movieTitle: movieTitle,
+      movieImage: movieImage,
     };
 
     axios.post('/api/favorite/removeFromFavorite', variables).then((response) => {
@@ -50,8 +55,8 @@ export default function FavoritePage() {
   const renderCards = Favorites.map((favorite, index) => {
     const content = (
       <div>
-        {favorite.moviePost ? (
-          <img src={`${IMAGE_BASE_URL}${POSTER_SIZE}${favorite.moviePost}`} alt={''} />
+        {favorite.movieImage ? (
+          <img src={`${IMAGE_BASE_URL}${POSTER_SIZE}${favorite.movieImage}`} alt={'movieImage'} />
         ) : (
           'no image'
         )}
@@ -63,7 +68,6 @@ export default function FavoritePage() {
         <Popover content={content} title={`${favorite.movieTitle}`}>
           <td>{favorite.movieTitle}</td>
         </Popover>
-
         <td>{favorite.movieRunTime} mins</td>
         <td>
           <button onClick={() => onClickDelete(favorite.movieId, favorite.userFrom)}>Remove</button>
