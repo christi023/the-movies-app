@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import SingleComment from './SingleComments';
 import ReplyComment from './ReplyComments';
+
 const { TextArea } = Input;
 const { Title } = Typography;
 
@@ -89,7 +90,7 @@ export default function Comments(props) {
           placeholder="write some comments"
         />
         <br />
-        <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>
+        <Button style={{ width: '26%', height: '54px' }} onClick={onSubmit}>
           Submit
         </Button>
       </form>
