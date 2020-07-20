@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import LeftMenu from './Sections/LeftMenu';
 import RightMenu from './Sections/RightMenu';
 import { Drawer, Button } from 'antd';
-import Icon from '@material-ui/icons/LockOutlined';
+import MenuIcon from '@material-ui/icons/Menu';
+
 import '../NavBar/Sections/NavBar.css';
 
-function NavBar() {
+// image
+const Logo = require('../../assets/images/Logo.png');
+
+export default function NavBar() {
   const [visible, setVisible] = useState(false);
 
   const showDrawer = () => {
@@ -17,19 +21,22 @@ function NavBar() {
   };
 
   return (
-    <nav className="menu" style={{ position: 'fixed', zIndex: 5, width: '100%' }}>
+    <nav className="menu">
       <div className="menu__logo">
-        <a href="/">Logo</a>
+        <a href="/">
+          <img src={Logo} alt="Logo" style={{ width: '100%', marginTop: '-5px' }} />
+        </a>
       </div>
       <div className="menu__container">
         <div className="menu_left">
           <LeftMenu mode="horizontal" />
         </div>
-        <div className="menu_rigth">
+        <div className="menu_right">
           <RightMenu mode="horizontal" />
         </div>
+
         <Button className="menu__mobile-button" type="primary" onClick={showDrawer}>
-          <Icon type="align-right" />
+          <MenuIcon type="align-right" />
         </Button>
         <Drawer
           title="Basic Drawer"
@@ -46,5 +53,3 @@ function NavBar() {
     </nav>
   );
 }
-
-export default NavBar;

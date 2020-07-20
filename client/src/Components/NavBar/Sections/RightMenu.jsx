@@ -5,6 +5,8 @@ import axios from 'axios';
 import { USER_SERVER } from '../../utils/misc';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+// image
+//const Upload = require('../../../assets/images/upload.png');
 
 function RightMenu(props) {
   const user = useSelector((state) => state.user);

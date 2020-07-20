@@ -1,14 +1,20 @@
 @import '~antd/dist/antd.css';
-a {
+
+a:hover {
+  background: black;
+  color: royalblue;
+}
+
+.menu_left a {
   text-decoration: none;
-  color: whitesmoke;
+
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   background: blueviolet;
   width: 120px;
   height: 55px;
   padding: 15px;
-  margin-top: 15px;
+  margin-left: 1em;
   margin-bottom: 15px;
   margin-right: 10px;
   border: none;
@@ -16,9 +22,21 @@ a {
   border-radius: 15px;
 }
 
-a:hover {
-  background: black;
-  color: royalblue;
+.menu_right a {
+  text-decoration: none;
+
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  background: blueviolet;
+  width: 120px;
+  height: 55px;
+  padding: 15px;
+  margin-left: 0.9em;
+  margin-bottom: 15px;
+  margin-right: 10px;
+  border: none;
+  outline: none;
+  border-radius: 15px;
 }
 
 .menu {
@@ -26,11 +44,14 @@ a:hover {
   border-bottom: solid 1px #e8e8e8;
   overflow: auto;
   box-shadow: 0 0 30px #f3f1f1;
-  background-color: white;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  background-color: black;
 }
 
 .menu__logo {
-  width: 150px;
+  width: 180px;
   float: left;
   text-align: center;
 }
@@ -60,10 +81,15 @@ a:hover {
 
 .menu__container .menu_left {
   float: left;
+  margin-top: 1em;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-left: 10px;
 }
 
-.menu__container .menu_rigth {
+.menu__container .menu_right {
   float: right;
+  margin-top: 1em;
 }
 
 .menu__mobile-button {
@@ -90,7 +116,7 @@ a:hover {
   }
 
   .menu_left,
-  .menu_rigth {
+  .menu_right {
     display: none;
   }
 
