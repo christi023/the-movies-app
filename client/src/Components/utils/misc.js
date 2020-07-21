@@ -12,3 +12,7 @@ export const IMAGE_SIZE = 'w1280';
 
 // w92, w154, w185, w342, w500, w780, original
 export const POSTER_SIZE = 'w500';
+export const backdrop_path = '/';
+
+export const SEARCH_BASE_URL = `${API_URL}search/movie?api_key=${API_KEY}&query=`;
+export const POPULAR_BASE_URL = `${API_URL}movie/popular?api_key=${API_KEY}`;
