@@ -28,7 +28,6 @@ const SearchBar = ({ callback }) => {
     </StyledSearchBar>
   );
 };
-
 SearchBar.propTypes = {
   callback: PropTypes.func,
 };
