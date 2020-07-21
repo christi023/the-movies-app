@@ -8,6 +8,7 @@ import Comments from './Sections/Comments';
 import LikeDislikes from './Sections/LikeDislikes';
 import MovieInfo from './Sections/MovieInfo';
 import Favorite from './Sections/Favorite';
+import Spinner from '../Spinner/Spinner';
 //Grid Card component
 import GridCards from '../Commons/GridCards';
 // Main Image Component
@@ -15,6 +16,7 @@ import MainImage from '../LandingPage/Images/MainImage';
 
 export default function MovieDetails(props) {
   const movieId = props.match.params.movieId;
+
   // states
   const [Movie, setMovie] = useState([]);
   const [Casts, setCasts] = useState([]);
@@ -22,9 +24,7 @@ export default function MovieDetails(props) {
   const [LoadingForMovie, setLoadingForMovie] = useState(true);
   const [LoadingForCasts, setLoadingForCasts] = useState(true);
   const [ActorToggle, setActorToggle] = useState(false);
-  const movieVariable = {
-    movieId: movieId,
-  };
+  const movieVariable = { movieId: movieId };
 
   // useEffect
   useEffect(() => {
@@ -42,6 +42,24 @@ export default function MovieDetails(props) {
     }); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setMovie]);
 
+  // params that matches movie poster
+  useEffect(() => {
+    const movieId = props.match.params.movieId;
+
+    fetch(`${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`)
+      .then((response) => response.json())
+      .then((response) => {
+        setMovie(response);
+
+        fetch(`${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`)
+          .then((response) => response.json())
+          .then((response) => {
+            console.log(response);
+            setCasts(response.cast);
+          });
+      });
+  }, [props.match.params.movieId]);
+
   // viewing actors
   const toggleActorView = () => {
     setActorToggle(!ActorToggle);
@@ -54,6 +72,8 @@ export default function MovieDetails(props) {
       .then((result) => {
         console.log(result);
         setLoadingForMovie(false);
+        setMovie(Movie || result.results[0]);
+
         // Casts endpoint results
         let endpointForCasts = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
         fetch(endpointForCasts)
@@ -76,14 +96,12 @@ export default function MovieDetails(props) {
   return (
     <div>
       {/* Header */}
-      {!LoadingForMovie ? (
+      {Movie && (
         <MainImage
-          image={`${IMAGE_BASE_URL}${IMAGE_SIZE}/${Movie.backdrop_path}`}
+          image={`${IMAGE_BASE_URL}${IMAGE_SIZE}${Movie.backdrop_path && Movie.backdrop_path}`}
           title={Movie.original_title}
           text={Movie.overview}
         />
-      ) : (
-        <div>loading...</div>
       )}
 
       {/* Body */}
@@ -93,11 +111,11 @@ export default function MovieDetails(props) {
         </div>
 
         {/* Movie Info */}
-        {!LoadingForMovie ? <MovieInfo movie={Movie} /> : <div>loading...</div>}
+        {!LoadingForMovie ? <MovieInfo movie={Movie} /> : <Spinner />}
 
         <br />
-
         {/* Actors Grid*/}
+
         <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem' }}>
           <Button onClick={toggleActorView}>Toggle Actor View </Button>
         </div>
@@ -108,16 +126,17 @@ export default function MovieDetails(props) {
               Casts.map(
                 (cast, index) =>
                   cast.profile_path && (
-                    <GridCards
-                      actor
-                      key={index}
-                      image={cast.profile_path}
-                      characterName={cast.characterName}
-                    />
+                    <React.Fragment key={index}>
+                      <GridCards
+                        actor
+                        image={cast.profile_path}
+                        characterName={cast.characterName}
+                      />
+                    </React.Fragment>
                   ),
               )
             ) : (
-              <div>loading...</div>
+              <Spinner />
             )}
           </Row>
         )}
