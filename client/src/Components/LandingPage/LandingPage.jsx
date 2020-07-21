@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Typography, Row } from 'antd';
+import React, { useState, useEffect } from 'react';
 // import utils
 import {
   API_URL,
@@ -15,17 +14,20 @@ import {
 import MainImage from './Images/MainImage';
 import GridCard from '../Commons/GridCards';
 import SearchBar from '../SearchBar/SearchBar';
-
-const { Title } = Typography;
+import MovieThumb from '../MovieThumb/MovieThumb';
+import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+import Spinner from '../Spinner/Spinner';
+import NoImage from '../../assets/images/no_image.jpg';
 
 function LandingPage() {
-  const buttonRef = useRef(null);
-  // All data
+  //const buttonRef = useRef();
   const [Movies, setMovies] = useState([]);
   const [MainMovieImage, setMainMovieImage] = useState(null);
   const [Loading, setLoading] = useState(true);
   const [CurrentPage, setCurrentPage] = useState(0);
-  //const [searchTerm, setSearchTerm] = useState('');
+  const [totalPages, setTotalPages] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
@@ -33,62 +35,60 @@ function LandingPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Fetch popular movies initially on mount
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    if (sessionStorage.homeState) {
+      setMovies(JSON.parse(sessionStorage.homeState));
+      setLoading(false);
+    } else {
+      fetchMovies(POPULAR_BASE_URL);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (!Movies.searchTerm) {
+      sessionStorage.setItem('homeState', JSON.stringify(Movies));
+    }
+  }, [Movies]);
 
   // search movies
   const searchMovies = (search) => {
-    const endpoint1 = search ? SEARCH_BASE_URL + search : POPULAR_BASE_URL;
-    //setSearchTerm(search);
-    fetchMovies(endpoint1);
+    const endpoint = search ? SEARCH_BASE_URL + search : POPULAR_BASE_URL;
+
+    setSearchTerm(search);
+    fetchMovies(endpoint);
   };
 
-  // method to fetch movies to reload pages
+  // fetch movies method
   const fetchMovies = (endpoint) => {
+    const isLoadMore = endpoint.search('page');
+    setError(false);
     fetch(endpoint)
       .then((result) => result.json())
       .then((result) => {
         // console.log(result)
         // console.log('Movies',...Movies)
         // console.log('result',...result.results)
-        setMovies([...Movies, ...result.results]);
+        setMovies(isLoadMore !== -1 ? [...Movies, ...result.results] : [...result.results]);
         setMainMovieImage(MainMovieImage || result.results[0]);
         setCurrentPage(result.page);
+        setTotalPages(result.total_pages);
       }, setLoading(false))
       .catch((error) => console.error('Error:', error));
   };
 
-  // load more items on page
   const loadMoreItems = () => {
-    let endpoint = '';
-    setLoading(true);
-    console.log('CurrentPage', CurrentPage);
-    // loading diff pages
-    endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1}`;
+    const searchEndpoint = `${SEARCH_BASE_URL}${searchTerm}&page=${CurrentPage + 1}`;
+    const popularEndpoint = `${POPULAR_BASE_URL}&page=${CurrentPage + 1}`;
+
+    const endpoint = searchTerm ? searchEndpoint : popularEndpoint;
+
     fetchMovies(endpoint);
   };
 
-  // scroll
-  const handleScroll = () => {
-    const windowHeight =
-      'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
-    const body = document.body;
-    const html = document.documentElement;
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight,
-    );
-    const windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight - 1) {
-      // loadMoreItems()
-      console.log('clicked');
-      buttonRef.current.click();
-    }
-  };
+  if (error) return <div>Something went wrong ...</div>;
+  if (!Movies[0]) return <Spinner />;
 
   return (
     <div style={{ width: '100%', margin: '0' }}>
@@ -99,35 +99,33 @@ function LandingPage() {
           text={MainMovieImage.overview}
         />
       )}
+
       <SearchBar callback={searchMovies} />
 
-      <div style={{ width: '85%', margin: '1rem auto' }}>
-        <Title level={2}> Movies by latest </Title>
-        <hr />
-        <Row gutter={[16, 16]}>
+      <div style={{ width: '95%', margin: '1rem auto' }}>
+        <GridCard header={searchTerm ? 'Search Result' : 'Popular Movies'}>
           {Movies &&
             Movies.map((movie, index) => (
               <React.Fragment key={index}>
-                <GridCard
+                <MovieThumb
+                  key={movie.id}
+                  clickable
                   image={
-                    movie.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}` : null
+                    movie.poster_path ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path : NoImage
                   }
                   movieId={movie.id}
                   movieName={movie.original_title}
                 />
               </React.Fragment>
             ))}
-        </Row>
+        </GridCard>
 
-        {Loading && <div>Loading...</div>}
+        {Loading && <Spinner />}
 
+        {CurrentPage < totalPages && !Loading && (
+          <LoadMoreBtn text="Load More" callback={loadMoreItems} />
+        )}
         <br />
-
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button ref={buttonRef} className="loadMore" onClick={loadMoreItems}>
-            Load More
-          </button>
-        </div>
       </div>
     </div>
   );
