@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Descriptions } from 'antd';
 
 function MovieInfo(props) {
@@ -19,4 +18,5 @@ function MovieInfo(props) {
     </Descriptions>
   );
 }
+
 export default MovieInfo;
