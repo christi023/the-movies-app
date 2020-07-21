@@ -3,13 +3,13 @@ const router = express.Router();
 
 const { Favorite } = require('../models/Favorite');
 
-//const { auth } = require('../middleware/auth');
+const { auth } = require('../middleware/auth');
 
 //=================================
 //             Subscribe
 //=================================
 
-router.post('/api/favorite/favoriteNumber', (req, res) => {
+router.post('/api/favorite/favoriteNumber', auth, (req, res) => {
   Favorite.find({ movieId: req.body.movieId }).exec((err, subscribe) => {
     if (err) return res.status(400).send(err);
 
@@ -17,7 +17,7 @@ router.post('/api/favorite/favoriteNumber', (req, res) => {
   });
 });
 
-router.post('/api/favorite/favorited', (req, res) => {
+router.post('/api/favorite/favorited', auth, (req, res) => {
   Favorite.find({
     movieId: req.body.movieId,
     userFrom: req.body.userFrom,
