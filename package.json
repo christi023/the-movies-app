@@ -8,10 +8,12 @@
     "npm": "6.9.0"
   },
   "scripts": {
+    "client-install": "npm install --prefix client",
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
     "client": "cd client && npm start",
-    "dev": "concurrently  \"npm run server\" \"npm run client\""
+    "dev": "concurrently  \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Sheliann Olsson",
   "license": "ISC",
