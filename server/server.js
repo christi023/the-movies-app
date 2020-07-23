@@ -40,7 +40,7 @@ app.use(likeRouter);
 
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
-/*app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
@@ -52,10 +52,10 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
   });
-}*/
+}
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(`Server running in development mode on port ${PORT}`);
 });
