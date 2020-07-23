@@ -11,6 +11,7 @@ import Favorite from './Sections/Favorite';
 import Spinner from '../Spinner/Spinner';
 //Grid Card component
 import GridCards from '../Commons/GridCards';
+
 // Main Image Component
 import MainImage from '../LandingPage/Images/MainImage';
 
@@ -123,15 +124,12 @@ export default function MovieDetails(props) {
         {ActorToggle && (
           <Row gutter={[16, 16]}>
             {!LoadingForCasts ? (
+              Casts &&
               Casts.map(
                 (cast, index) =>
                   cast.profile_path && (
                     <React.Fragment key={index}>
-                      <GridCards
-                        actor
-                        image={cast.profile_path}
-                        characterName={cast.characterName}
-                      />
+                      <GridCards actor image={cast.profile_path} characterName={cast.character} />
                     </React.Fragment>
                   ),
               )
