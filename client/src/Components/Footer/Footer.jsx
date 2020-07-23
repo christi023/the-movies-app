@@ -12,7 +12,7 @@ export default function Footer() {
         fontSize: '1rem',
       }}
     >
-      <p>Happy Coding</p>
+      <p> Copyright &copy; 2020</p>
     </div>
   );
 }
