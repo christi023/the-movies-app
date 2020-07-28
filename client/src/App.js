@@ -8,6 +8,7 @@ import Register from './Components/Register/Register';
 import NavBar from './Components/NavBar/NavBar';
 import Footer from './Components/Footer/Footer';
 import MovieDetail from './Components/MovieDetail/MovieDetails';
+//import Movie from './Components/Movie';
 import FavoritePage from './Components/FavoritePage/FavoritePage';
 import './App.css';
 //styles
