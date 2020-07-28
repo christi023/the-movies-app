@@ -7,6 +7,7 @@ export const ActorStyle = styled.div`
   border-radius: 20px;
   padding: 5px;
   text-align: center;
+
   img {
     display: block;
     width: 100%;
@@ -14,11 +15,13 @@ export const ActorStyle = styled.div`
     object-fit: cover;
     border-radius: 15px;
   }
+
   .actor-name {
     display: block;
     font-size: 18px;
     margin: 10px 0 0 0;
   }
+
   .actor-character {
     display: block;
     font-size: 16px;
