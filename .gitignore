@@ -1,10 +1,10 @@
 /node_modules
 /build
-/client/node_modules
+
 dev.js
 
-/client/utils/misc.js
-/server/config
+
+
 
 .env
 .DS_Store
