@@ -9,7 +9,7 @@ const { auth } = require('../middleware/auth');
 //             Likes DisLikes
 //=================================
 
-router.post('/api/like/getLikes', (req, res) => {
+router.post('/getLikes', (req, res) => {
   let variable = {};
   if (req.body.videoId) {
     variable = { videoId: req.body.videoId };
@@ -23,7 +23,7 @@ router.post('/api/like/getLikes', (req, res) => {
   });
 });
 
-router.post('/api/like/getDislikes', (req, res) => {
+router.post('/getDislikes', (req, res) => {
   let variable = {};
   if (req.body.videoId) {
     variable = { videoId: req.body.videoId };
@@ -37,7 +37,7 @@ router.post('/api/like/getDislikes', (req, res) => {
   });
 });
 
-router.post('/api/like/upLike', (req, res) => {
+router.post('/upLike', (req, res) => {
   let variable = {};
   if (req.body.videoId) {
     variable = { videoId: req.body.videoId, userId: req.body.userId };
@@ -57,7 +57,7 @@ router.post('/api/like/upLike', (req, res) => {
   });
 });
 
-router.post('/api/like/unLike', (req, res) => {
+router.post('/unLike', (req, res) => {
   let variable = {};
   if (req.body.videoId) {
     variable = { videoId: req.body.videoId, userId: req.body.userId };
@@ -71,7 +71,7 @@ router.post('/api/like/unLike', (req, res) => {
   });
 });
 
-router.post('/api/like/unDisLike', (req, res) => {
+router.post('/unDisLike', (req, res) => {
   let variable = {};
   if (req.body.videoId) {
     variable = { videoId: req.body.videoId, userId: req.body.userId };
@@ -85,7 +85,7 @@ router.post('/api/like/unDisLike', (req, res) => {
   });
 });
 
-router.post('/api/like/upDisLike', (req, res) => {
+router.post('/upDisLike', (req, res) => {
   let variable = {};
   if (req.body.videoId) {
     variable = { videoId: req.body.videoId, userId: req.body.userId };

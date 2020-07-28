@@ -8,7 +8,7 @@ const { auth } = require('../middleware/auth');
 //=================================
 
 //------------------SAVE COMMENTS----------------------
-router.post('/api/comment/saveComment', auth, async (req, res) => {
+router.post('/saveComment', auth, async (req, res) => {
   try {
     const comment = new Comment(req.body);
 
@@ -29,7 +29,7 @@ router.post('/api/comment/saveComment', auth, async (req, res) => {
 });
 
 //------------------GET COMMENTS----------------------
-router.post('/api/comment/getComments', async (req, res) => {
+router.post('/getComments', async (req, res) => {
   try {
     Comment.find({ postId: req.body.movieId })
       .populate('writer')

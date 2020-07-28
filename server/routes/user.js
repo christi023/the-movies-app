@@ -8,7 +8,7 @@ const { auth } = require('../middleware/auth');
 //             User
 //=================================
 
-router.get('/api/users/auth', auth, (req, res) => {
+router.get('/auth', auth, (req, res) => {
   res.status(200).json({
     _id: req.user._id,
     isAdmin: req.user.role === 0 ? false : true,
@@ -22,7 +22,7 @@ router.get('/api/users/auth', auth, (req, res) => {
 });
 
 //------------------REGISTER USER ROUTE----------------------
-router.post('/api/users/register', async (req, res) => {
+router.post('/register', async (req, res) => {
   // Create a new user-register new user
   try {
     const user = new User(req.body);
@@ -38,7 +38,7 @@ router.post('/api/users/register', async (req, res) => {
 });
 
 // -------------------- LOGIN USER ROUTE ---------------------
-router.post('/api/users/login', async (req, res) => {
+router.post('/login', async (req, res) => {
   // Login a registered user
   try {
     const { email } = req.body;
@@ -62,7 +62,7 @@ router.post('/api/users/login', async (req, res) => {
 });
 
 //-------------------- LOGOUT USER ROUTE ---------------------
-router.get('/api/users/logout', auth, async (req, res) => {
+router.get('/logout', auth, async (req, res) => {
   // Log user out of the application
   try {
     req.user._id = await User.findByIdAndUpdate(
@@ -81,7 +81,7 @@ router.get('/api/users/logout', auth, async (req, res) => {
 });
 
 //------------------------ DELETE USER --------------------------
-router.delete('/api/users/delete', auth, async (req, res) => {
+router.delete('/delete', auth, async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.user);
     res.json(deletedUser);
