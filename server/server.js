@@ -4,11 +4,7 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-// router imports
-const userRouter = require('./routes/user');
-const commentRouter = require('./routes/comment');
-const favoriteRouter = require('./routes/favorite');
-const likeRouter = require('./routes/like');
+
 // load env var
 require('dotenv').config();
 
@@ -31,10 +27,10 @@ mongoose.connect(process.env.DATABASE, {
 app.use(cors());
 
 // ------- ROUTER -------- //
-app.use(userRouter);
-app.use(commentRouter);
-app.use(favoriteRouter);
-app.use(likeRouter);
+app.use('/api/users', require('./routes/user'));
+app.use('/api/comment', require('./routes/comment'));
+app.use('/api/like', require('./routes/like'));
+app.use('/api/favorite', require('./routes/favorite'));
 
 //app.use('/api/users', require('./routes/user'));
 
@@ -50,7 +46,7 @@ if (process.env.NODE_ENV === 'production') {
 
   // index.html for all page routes    html or routing and navigation
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
