@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect(process.env.DATABASE || 'mongodb://localhost:27017/the-movies-app', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === 'production') {
 
   // index.html for all page routes    html or routing and navigation
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
