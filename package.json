@@ -30,7 +30,7 @@
     "express": "^4.17.1",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.9.21",
     "react-redux": "^5.0.7",
     "saslprep": "^1.0.3",
